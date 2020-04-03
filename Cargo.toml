@@ -1,0 +1,78 @@
+[package]
+name = "rustapi"
+version = "0.1.0"
+authors = ["kgv <kgv@users.noreply.github.com>"]
+license = "MIT OR Apache-2.0"
+description = "Rusty bindings for all of Windows API."
+edition = '2018'
+
+[dependencies]
+anyhow = "1.0.28"
+bitflags = "1.2.1"
+derive_more = "0.99.5"
+lazy_static = "1.4.0"
+log = "0.4.8"
+partial-uninit = "0.1.0"
+typed-builder = "0.5.1"
+widestring = "0.4.0"
+winapi = { version = "0.3.8", features = ["std"] }
+
+rustapi-macro = { version = "0.1.0", path = "macro" }
+
+itertools = "0.9.0"
+
+[features]
+default = [
+    "consoleapi",
+    "fileapi",
+    "handleapi",
+    "ioapiset",
+    "libloaderapi",
+    "memoryapi",
+    "minwindef",
+    "ntdef",
+    "processthreadsapi",
+    "profileapi",
+    "psapi",
+    "securitybaseapi",
+    "synchapi",
+    "sysinfoapi",
+    "timeapi",
+    "tlhelp32",
+    "winbase",
+    "wincon",
+    "wincontypes",
+    "windef",
+    "winnt",
+    "winsvc",
+    "winuser",
+    "wow64apiset",
+]
+nightly = ["unstable"]
+unstable = []
+
+consoleapi = ["winapi/consoleapi"]
+fileapi = ["winapi/fileapi", "winapi/handleapi", "winapi/minwinbase", "winapi/minwindef", "winapi/winerror", "winapi/winnt"]
+handleapi = ["winapi/handleapi"]
+ioapiset = ["winapi/ioapiset"]
+libloaderapi = ["winapi/libloaderapi"]
+memoryapi = ["winapi/memoryapi", "winapi/winnt"]
+minwindef = ["winapi/minwindef"]
+ntdef = ["winapi/ntdef", "winapi/handleapi"]
+processthreadsapi = ["winapi/processthreadsapi", "winapi/minwindef", "winapi/winnt"]
+profileapi = ["winapi/profileapi"]
+psapi = ["winapi/psapi"]
+securitybaseapi = ["winapi/securitybaseapi"]
+synchapi = ["winapi/synchapi", "winapi/winbase"]
+sysinfoapi = ["winapi/sysinfoapi"]
+timeapi = ["winapi/timeapi"]
+tlhelp32 = ["winapi/tlhelp32", "winapi/handleapi", "winapi/minwindef"]
+winbase = ["winapi/winbase"]
+wincon = ["winapi/wincon"]
+wincontypes = ["winapi/wincontypes"]
+windef = ["winapi/windef"]
+winerror = ["winapi/winerror"]
+winnt = ["winapi/winnt"]
+winsvc = ["winapi/winsvc"]
+winuser = ["winapi/winuser"]
+wow64apiset = ["winapi/wow64apiset"]

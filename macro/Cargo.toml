@@ -1,0 +1,22 @@
+[package]
+name = "rustapi-macro"
+version = "0.1.0"
+authors = ["kgv <kgv@users.noreply.github.com>"]
+license = "MIT OR Apache-2.0"
+description = "Rusty winapi procedural macro"
+homepage = "https://crates.io/crates/rustapi-macro"
+documentation = "https://docs.rs/rustapi-macro"
+repository = "https://github.com/kgv/rustapi"
+readme = "README.md"
+keywords = ["format", "help", "lazy", "macro", "wrap"]
+categories = ["no-std", "rust-patterns", "value-formatting"]
+edition = "2018"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+darling = "0.10.2"
+proc-macro2 = "1.0.10"
+quote = "1.0.3"
+syn = { version = "1.0.17", features = ["full"] }
