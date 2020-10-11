@@ -8,6 +8,12 @@ use winapi::um::wincontypes::{COORD, HPCON, INPUT_RECORD};
 #[repr(transparent)]
 pub struct Coordinates(COORD);
 
+impl Coordinates {
+    pub fn new(x: i16, y: i16) -> Self {
+        Coordinates(COORD { X: x, Y: y })
+    }
+}
+
 /// Input record.
 #[derive(Clone, Deref, DerefMut, From, Into)]
 #[repr(transparent)]

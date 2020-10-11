@@ -1,10 +1,10 @@
-use derive_more::{Display, From, Into};
+use derive_more::{Deref, Display, From, Into};
 use rustapi_macro::Handle;
 use std::fmt::{self, Debug, Formatter};
 use winapi::shared::windef::HWND;
 
 /// Window handle.
-#[derive(Clone, Copy, Display, From, Handle, Into)]
+#[derive(Clone, Copy, Deref, Display, From, Handle, Into)]
 #[display(fmt = "{:#p}", _0)]
 #[repr(transparent)]
 pub struct WindowHandle(HWND);

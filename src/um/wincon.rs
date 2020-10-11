@@ -1,4 +1,5 @@
 use crate::{
+    r#macro::FnOnce,
     shared::{ntdef::Handle, windef::WindowHandle},
     um::wincontypes::InputRecord,
     utils::FromStrictRawHandle,
@@ -38,7 +39,7 @@ impl FnOnce<()> for GetConsoleWindow {
 }
 
 /// Get number of console mouse buttons.
-#[derive(TypedBuilder)]
+#[derive(FnOnce, TypedBuilder)]
 pub struct GetNumberOfConsoleMouseButtons {
     #[builder(default, setter(skip))]
     number_of_mouse_buttons: u32,
@@ -59,7 +60,7 @@ impl FnOnce<()> for GetNumberOfConsoleMouseButtons {
 }
 
 /// Write console input.
-#[derive(TypedBuilder)]
+#[derive(FnOnce, TypedBuilder)]
 pub struct WriteConsoleInput<'a> {
     console_input: &'a Handle,
     buffer: &'a [InputRecord],

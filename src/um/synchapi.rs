@@ -8,7 +8,7 @@
 //! [Thread](crate::um::thread::Thread)
 //! Waitable timer
 
-use crate::shared::ntdef::Handle;
+use crate::{r#macro::FnOnce, shared::ntdef::Handle};
 use std::{io, os::windows::io::AsRawHandle, thread::JoinHandle};
 use typed_builder::TypedBuilder;
 use winapi::{
@@ -24,7 +24,7 @@ impl Wait for Handle {}
 impl<T> Wait for JoinHandle<T> {}
 
 /// Wait for single object.
-#[derive(TypedBuilder)]
+#[derive(FnOnce, TypedBuilder)]
 pub struct WaitForSingleObject<T: Wait> {
     handle: T,
     #[builder(default = INFINITE)]

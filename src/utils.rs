@@ -14,3 +14,8 @@ pub trait FromStrictRawHandle {
 pub trait IntoStrictRawHandle: FromStrictRawHandle {
     fn into_strict_raw_handle(self) -> Self::StrictRawHandle;
 }
+
+/// Transparent.
+pub trait Transparent {
+    type Target;
+}

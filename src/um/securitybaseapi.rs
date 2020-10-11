@@ -1,4 +1,4 @@
-use crate::{shared::ntdef::Handle, um::winnt::Privileges};
+use crate::{r#macro::FnOnce, shared::ntdef::Handle, um::winnt::Privileges};
 use anyhow::{ensure, Error};
 use log::warn;
 use std::{
@@ -11,7 +11,7 @@ use typed_builder::TypedBuilder;
 use winapi::shared::minwindef::FALSE;
 
 /// Adjust token privileges.
-#[derive(TypedBuilder)]
+#[derive(FnOnce, TypedBuilder)]
 pub struct AdjustTokenPrivileges<'a> {
     token: &'a Handle,
     #[builder(default)]
@@ -99,7 +99,7 @@ mod tests {
     fn disable_all_privileges() -> Result<(), Error> {
         let process = GetCurrentProcess();
         let token = OpenProcessToken::builder()
-            .process(&process)
+            .process_handle(&process)
             .desired_access(TOKEN_ADJUST_PRIVILEGES)
             .build()()?;
         AdjustTokenPrivileges::builder()
@@ -113,7 +113,7 @@ mod tests {
     fn privileges() -> Result<(), Error> {
         let process = GetCurrentProcess();
         let token = OpenProcessToken::builder()
-            .process(&process)
+            .process_handle(&process)
             .desired_access(TOKEN_ADJUST_PRIVILEGES)
             .build()()?;
         let privilege = Privilege::lookup(SE_SECURITY_NAME)?.attribute(SE_PRIVILEGE_ENABLED);

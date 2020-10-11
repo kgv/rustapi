@@ -1,14 +1,14 @@
 use crate::um::{
-    handleapi::{DuplicateHandle, DuplicateHandleBuilder},
+    handleapi::{duplicate_handle, DuplicateHandle, DuplicateHandleBuilder},
     processthreadsapi::GetCurrentProcess,
 };
 use anyhow::Result;
 use derive_more::{Deref, DerefMut, Display, From, Into};
+use rustapi_macro::Handle;
 use std::{
     fmt::{self, Debug, Formatter},
     io,
-    mem::forget,
-    os::windows::io::{AsRawHandle, FromRawHandle, IntoRawHandle, RawHandle},
+    os::windows::io::RawHandle,
 };
 use winapi::{
     shared::{minwindef::FALSE, ntdef::LUID},
@@ -16,14 +16,14 @@ use winapi::{
 };
 
 /// Handle.
-#[derive(Clone, Debug, Display)]
+#[derive(Clone, Debug, Display, Handle)]
 #[display(fmt = "{:#p}", _0)]
 #[repr(transparent)]
 pub struct Handle(RawHandle);
 
 impl Handle {
     pub fn duplicate(&self) -> DuplicateHandleBuilder<((), (&Handle,), (), (), (), ())> {
-        DuplicateHandle::builder().source_handle(self)
+        duplicate_handle().source_handle(self)
     }
 
     pub fn duplicate_for_current_process(&self) -> Result<Handle> {
@@ -37,30 +37,10 @@ impl Handle {
     }
 }
 
-impl AsRawHandle for Handle {
-    fn as_raw_handle(&self) -> RawHandle {
-        self.0
-    }
-}
-
 impl Drop for Handle {
     fn drop(&mut self) {
         let r#return = unsafe { CloseHandle(self.0) };
         assert!(r#return != FALSE, io::Error::last_os_error());
-    }
-}
-
-impl FromRawHandle for Handle {
-    unsafe fn from_raw_handle(raw_handle: RawHandle) -> Self {
-        Handle(raw_handle)
-    }
-}
-
-impl IntoRawHandle for Handle {
-    fn into_raw_handle(self) -> RawHandle {
-        let handle = self.0;
-        forget(self);
-        handle
     }
 }
 

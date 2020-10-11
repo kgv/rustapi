@@ -1,17 +1,9 @@
 use rustapi_macro::Handle;
 
-#[derive(Handle)]
-pub struct Temp(*mut u8);
-
 #[test]
-fn struct_named() {
-    // // Should pass
-    // StructContainer::from_derive_input(&source::named_struct()).unwrap();
-
-    // // Should fail
-    // StructContainer::from_derive_input(&source::tuple_struct()).unwrap_err();
-    // StructContainer::from_derive_input(&source::named_field_enum()).unwrap_err();
-    // StructContainer::from_derive_input(&source::newtype_enum()).unwrap_err();
+fn test() {
+    #[derive(Handle)]
+    pub struct Temp(*mut u8);
 }
 
 mod utils {

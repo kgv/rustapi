@@ -12,7 +12,7 @@ pub(super) fn derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream 
     let ident = &attribute.ident;
     let fields = &attribute.data.take_struct().unwrap();
     assert!(
-        Style::Tuple == fields.style && 1 == fields.fields.len(),
+        fields.style == Style::Tuple && fields.fields.len() == 1,
         "Handle derive supports only tuple structures with a single field",
     );
     let r#type = &fields.fields[0].ty;

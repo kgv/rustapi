@@ -17,6 +17,7 @@ proc-macro = true
 
 [dependencies]
 darling = "0.10.2"
-proc-macro2 = "1.0.10"
-quote = "1.0.3"
-syn = { version = "1.0.17", features = ["full"] }
+lazy_static = "1.4.0"
+proc-macro2 = "1.0.24"
+quote = "1.0.7"
+syn = { version = "1.0.44", features = ["full"] }

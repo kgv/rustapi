@@ -100,7 +100,7 @@ impl Privilege {
     pub fn enable(name: &str) -> Result<()> {
         let process = GetCurrentProcess();
         let token = OpenProcessToken::builder()
-            .process(&process)
+            .process_handle(&process)
             .desired_access(TOKEN_ADJUST_PRIVILEGES)
             .build()()?;
         let privilege = Privilege::lookup(name)?.attribute(SE_PRIVILEGE_ENABLED);
